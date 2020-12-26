@@ -150,7 +150,7 @@ void FuncBuilder::OnLButtonUp()
 	ReleaseCapture();
 }
 
-BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
@@ -218,13 +218,13 @@ bool FuncBuilder::HandleAdditionalMessage(UINT uMsg, WPARAM wParam, LPARAM lPara
 	{
 	case WM_LBUTTONDOWN:
 		OnLButtonDown(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), (DWORD)wParam);
-		return 0;
+		return false;
 	case WM_LBUTTONUP:
 		OnLButtonUp();
-		return 0;
+		return false;
 	case WM_MOUSEMOVE:
 		OnMouseMove(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), (DWORD)wParam);
-		return 0;
+		return false;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -251,7 +251,7 @@ bool FuncBuilder::HandleAdditionalMessage(UINT uMsg, WPARAM wParam, LPARAM lPara
 			if (Selection())
 			{
 				DeleteEllipse();
-				InvalidateRect(m_hwnd, NULL, FALSE);
+				InvalidateRect(m_hwnd, nullptr, FALSE);
 			}
 			break;
 		}
